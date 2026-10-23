@@ -193,7 +193,7 @@ export const projects: Project[] = [
     screenTone: '#faf6f1',
     stack: ['Claude Code', 'Codex', 'React', 'TypeScript', 'Capacitor'],
     links: {
-      preview: 'https://trainify-psi.vercel.app',
+      preview: 'https://kynori.vercel.app/#/',
       github: ['https://github.com/isabelafagundes/kynori'],
     },
     mockups: [
