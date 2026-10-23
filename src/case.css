@@ -1,0 +1,648 @@
+/* ============ Card da home: link que cobre o card ============ */
+.project__link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 34px;
+}
+
+.project__link:focus-visible {
+  outline: none;
+}
+
+.project:has(.project__link:focus-visible) {
+  outline: 2px solid var(--secondary);
+  outline-offset: 4px;
+}
+
+.project {
+  cursor: pointer;
+}
+
+.project.is-visible {
+  transition:
+    opacity 0.9s var(--ease),
+    filter 0.9s var(--ease),
+    transform 0.6s var(--ease),
+    border-color 0.4s var(--ease);
+}
+
+.project.is-visible:hover {
+  transform: translateY(-4px);
+  border-color: var(--stroke-strong);
+}
+
+.project__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.project__cta svg {
+  transition: transform 0.4s var(--ease);
+}
+
+.project:hover .project__cta svg {
+  transform: translate(3px, -3px);
+}
+
+/* ============ Página de projeto ============ */
+.case {
+  --aura-a: #8a4dff;
+  --aura-b: #c7a2ff;
+  --aura-c: #3a2a9a;
+  position: relative;
+  z-index: 2;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.case--rose {
+  --aura-a: #ff6f8e;
+  --aura-b: #c7a2ff;
+  --aura-c: #9b5cff;
+}
+
+.case--ember {
+  --aura-a: #9b5cff;
+  --aura-b: #ffc2a8;
+  --aura-c: #ff6f8e;
+}
+
+.case__hero {
+  padding: 132px 0 56px;
+  animation: hero-in 1.2s var(--ease) both;
+}
+
+.case__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-bottom: 28px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.25s;
+}
+
+.case__back span {
+  transition: transform 0.35s var(--ease);
+}
+
+.case__back:hover {
+  color: var(--ink);
+}
+
+.case__back:hover span {
+  transform: translateX(-4px);
+}
+
+.case__badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.case__tagline {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.case__name {
+  display: block;
+  width: fit-content;
+  margin-top: 22px;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(3.4rem, 11vw, 9rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  max-width: 12ch;
+}
+
+.case__intro {
+  max-width: 60ch;
+  margin-top: 22px;
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  color: #ecdfe6;
+}
+
+.case__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+/* Uma linha só no desktop, qualquer que seja o número de itens */
+.case__meta {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 1px;
+  margin: 56px 0 0;
+  border: 1px solid var(--stroke);
+  border-radius: 22px;
+  overflow: hidden;
+  background: var(--stroke);
+}
+
+.case__meta div {
+  padding: 18px 20px;
+  background: rgba(14, 12, 22, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.case__meta dt {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.case__meta dd {
+  margin: 6px 0 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* ============ Vitrine de mockups ============ */
+.showcase {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(40px, 6vw, 80px) clamp(16px, 4vw, 56px);
+  border-radius: 40px;
+  border: 1px solid var(--stroke);
+  background: #110e1a;
+  overflow: hidden;
+}
+
+.showcase__aura {
+  position: absolute;
+  inset: -10%;
+  z-index: -1;
+  filter: blur(70px);
+  opacity: 0.4;
+  background:
+    radial-gradient(35% 40% at 20% 25%, var(--aura-a), transparent 70%),
+    radial-gradient(40% 45% at 80% 70%, var(--aura-b), transparent 70%),
+    radial-gradient(30% 35% at 55% 95%, var(--aura-c), transparent 70%);
+}
+
+.showcase__phones {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(16px, 3vw, 36px);
+}
+
+.showcase__phones .phone:nth-child(even) {
+  margin-top: 56px;
+}
+
+.showcase__combo {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto 40px;
+}
+
+.showcase__combo .phone {
+  position: absolute;
+  right: -2%;
+  bottom: -12%;
+  width: clamp(130px, 22%, 230px);
+}
+
+/* Moldura de celular: a figure é o container, então tudo escala em cqw com a largura */
+.phone {
+  position: relative;
+  flex: 0 1 280px;
+  min-width: 0;
+  margin: 0;
+  container-type: inline-size;
+}
+
+.phone__body {
+  position: relative;
+  padding: 3cqw;
+  border-radius: 12cqw;
+  background: linear-gradient(150deg, #fbf1f4, #8f7fa8 30%, #2a2338 55%, #c9b3e6 85%, #ffffff);
+  box-shadow:
+    0 40px 80px -30px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(255, 255, 255, 0.25) inset;
+  transition: transform 0.6s var(--ease);
+}
+
+.phone:hover .phone__body {
+  transform: translateY(-6px);
+}
+
+.phone__screen {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 9cqw;
+  background: var(--tone, #15121f);
+}
+
+/* Barra de status desenhada: a ilha fica aqui, nunca sobre o conteúdo do app */
+.phone__status {
+  position: relative;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 11cqw;
+  padding: 0 7cqw 0 9cqw;
+  background: var(--tone, #15121f);
+  color: var(--status-ink, #1a1626);
+  font: 600 4.4cqw/1 var(--sans);
+  letter-spacing: 0.01em;
+}
+
+.phone__island {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 26cqw;
+  height: 7.4cqw;
+  border-radius: 999px;
+  background: #0e0d17;
+  transform: translate(-50%, -50%);
+}
+
+.phone__icons {
+  display: flex;
+  align-items: center;
+  gap: 1.6cqw;
+}
+
+.phone__icons svg {
+  height: 3.6cqw;
+  width: auto;
+  fill: currentColor;
+}
+
+.phone__content {
+  aspect-ratio: var(--ratio, 720 / 1362);
+  overflow: hidden;
+}
+
+.phone__content img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.phone__glare {
+  position: absolute;
+  inset: 3cqw;
+  border-radius: 9cqw;
+  pointer-events: none;
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.16) 0%, transparent 32%, transparent 70%, rgba(255, 255, 255, 0.06));
+}
+
+/* Janela de navegador */
+.browser {
+  margin: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(22, 18, 32, 0.7);
+  box-shadow: 0 50px 100px -40px rgba(0, 0, 0, 0.95);
+}
+
+.browser__bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 12px 16px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05));
+}
+
+.browser__bar > span {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.browser__url {
+  flex: 1;
+  max-width: 320px;
+  margin: 0 auto;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.3);
+  font-size: 0.72rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+.browser img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ============ Galeria de telas ============ */
+.gallery {
+  display: grid;
+  gap: 28px;
+  padding-top: clamp(72px, 10vw, 128px);
+}
+
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(32px, 4vw, 56px) clamp(20px, 3vw, 40px);
+}
+
+.gallery__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.gallery__item .phone {
+  flex: none;
+  width: min(100%, 340px);
+}
+
+/* Print de desktop ocupa a linha inteira */
+.gallery__item--browser {
+  grid-column: 1 / -1;
+}
+
+.gallery__item--browser .browser {
+  width: min(100%, 1000px);
+}
+
+.gallery__caption {
+  display: flex;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.gallery__caption span {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--ink);
+}
+
+/* ============ Conteúdo do estudo de caso ============ */
+.case__content {
+  display: grid;
+  gap: clamp(56px, 8vw, 96px);
+  padding-top: clamp(72px, 10vw, 128px);
+}
+
+.case__block {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.6fr) 2fr;
+  gap: clamp(16px, 4vw, 56px);
+  align-items: start;
+}
+
+.case__block--wide {
+  grid-template-columns: 1fr;
+}
+
+.case__label {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2rem, 3.6vw, 2.8rem);
+  line-height: 1.05;
+}
+
+.case__text {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 64ch;
+  color: #e6d8e0;
+  font-size: 1.05rem;
+}
+
+.case__text--large {
+  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+  color: var(--ink);
+}
+
+.case__list li {
+  display: flex;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--stroke);
+  color: #e6d8e0;
+}
+
+.case__role {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.case__list strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.case__list li::before {
+  content: '\2726';
+  color: var(--aura-a);
+}
+
+.case__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.case__card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 26px;
+}
+
+.case__card h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.case__card p {
+  color: var(--muted);
+  font-size: 0.93rem;
+}
+
+.case__decisions {
+  margin: 0;
+}
+
+.case__decisions div {
+  display: grid;
+  grid-template-columns: minmax(160px, 0.7fr) 2fr;
+  gap: 24px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--stroke);
+}
+
+.case__decisions dt {
+  font-weight: 600;
+}
+
+.case__decisions dd {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* ============ Próximo projeto ============ */
+.case__next {
+  padding-top: clamp(80px, 12vw, 140px);
+}
+
+.next {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: clamp(36px, 6vw, 72px);
+  border-radius: 36px;
+  border: 1px solid var(--stroke);
+  overflow: hidden;
+  background: #120f1b;
+  transition: border-color 0.4s var(--ease), transform 0.6s var(--ease);
+}
+
+.next:hover {
+  border-color: var(--stroke-strong);
+  transform: translateY(-4px);
+}
+
+.next__aura {
+  position: absolute;
+  inset: -20%;
+  z-index: -1;
+  filter: blur(60px);
+  opacity: 0.55;
+  transition: opacity 0.6s var(--ease);
+}
+
+.next:hover .next__aura {
+  opacity: 0.9;
+}
+
+.next--violet .next__aura {
+  background:
+    radial-gradient(40% 50% at 20% 40%, #8a4dff, transparent 70%),
+    radial-gradient(40% 50% at 80% 70%, #c7a2ff, transparent 70%);
+}
+
+.next--rose .next__aura {
+  background:
+    radial-gradient(40% 50% at 20% 40%, #ff6f8e, transparent 70%),
+    radial-gradient(40% 50% at 80% 70%, #c7a2ff, transparent 70%);
+}
+
+.next--ember .next__aura {
+  background:
+    radial-gradient(40% 50% at 20% 40%, #9b5cff, transparent 70%),
+    radial-gradient(40% 50% at 80% 70%, #ffc2a8, transparent 70%);
+}
+
+.next__name {
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 8vw, 6rem);
+  line-height: 1;
+}
+
+.next__tagline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.case__footer {
+  padding-bottom: 32px;
+}
+
+/* ============ Responsivo ============ */
+@media (max-width: 960px) {
+  .case__meta {
+    grid-auto-flow: row;
+    grid-template-columns: 1fr 1fr;
+  }
+  .case__meta div:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+  .case__block,
+  .case__decisions div {
+    grid-template-columns: 1fr;
+  }
+  .case__decisions div {
+    gap: 6px;
+  }
+}
+
+@media (max-width: 720px) {
+  .gallery__grid {
+    grid-template-columns: 1fr;
+  }
+  .gallery__item .phone {
+    width: min(78%, 320px);
+  }
+  .showcase {
+    padding-inline: 0;
+    border-radius: 28px;
+  }
+  .showcase__phones {
+    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 0 24px 8px;
+    scrollbar-width: none;
+  }
+  .showcase__phones .phone {
+    flex: 0 0 62%;
+    scroll-snap-align: center;
+  }
+  .showcase__phones .phone:nth-child(even) {
+    margin-top: 0;
+  }
+  .showcase__combo {
+    padding: 0 16px;
+  }
+  .showcase__combo {
+    margin-bottom: 56px;
+  }
+  .showcase__combo .phone {
+    right: 6%;
+    bottom: -30%;
+    width: 24%;
+  }
+}

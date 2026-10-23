@@ -1,0 +1,9 @@
+node_modules
+dist
+*.local
+
+# Ferramentas locais e rascunhos
+tmp
+.claude
+.impeccable.md
+*.tsbuildinfo
