@@ -1,0 +1,207 @@
+/* ============ Tema claro ============
+   Ativado por <html data-theme="light">. Os tokens trocam aqui; as regras abaixo
+   cobrem os pontos de styles.css/case.css que usam cor fixa pensada para o fundo escuro. */
+:root[data-theme='light'] {
+  --bg: #f6f0ec;
+  --ink: #1d1626;
+  --ink-soft: #3a3046;
+  --muted: #5b5070;
+  --faint: #776b88;
+  --glass: rgba(29, 22, 38, 0.04);
+  --glass-strong: rgba(29, 22, 38, 0.07);
+  --stroke: rgba(29, 22, 38, 0.12);
+  --stroke-strong: rgba(29, 22, 38, 0.24);
+  --primary: #8a4dff;
+  --secondary: #e8466f;
+  --soft: #c9714f;
+  --glow: #7a45e6;
+  --surface: #fffaf7;
+  /* "Cromo" escuro: o mesmo reflexo, agora legível no fundo claro */
+  --chrome: linear-gradient(175deg, #2a1d3d 0%, #4b3184 38%, #1d1626 55%, #6f45cf 75%, #b8476a 100%);
+  color-scheme: light;
+}
+
+/* Fundo líquido mais suave */
+[data-theme='light'] .liquid__blob {
+  opacity: 0.22;
+}
+[data-theme='light'] .liquid__blob--b {
+  opacity: 0.14;
+}
+[data-theme='light'] .liquid__grain {
+  opacity: 0.06;
+}
+
+/* Superfícies sólidas */
+[data-theme='light'] .nav,
+[data-theme='light'] .nav--scrolled {
+  background: #fffaf7;
+  box-shadow: 0 10px 30px -18px rgba(60, 30, 90, 0.35);
+}
+[data-theme='light'] .hero__window-bar,
+[data-theme='light'] .hero__ui,
+[data-theme='light'] .stack__tip {
+  background: var(--surface);
+  border-color: var(--stroke);
+}
+[data-theme='light'] .hero__window-bar span {
+  color: var(--muted);
+}
+[data-theme='light'] .hero__ui,
+[data-theme='light'] .hero__tag {
+  box-shadow: 0 14px 30px -14px rgba(60, 30, 90, 0.35);
+}
+[data-theme='light'] .hero__tag {
+  background: var(--ink);
+  color: #fffaf7;
+}
+[data-theme='light'] .hero__swatches i {
+  border-color: var(--surface);
+}
+[data-theme='light'] .hero__cursor {
+  fill: var(--ink);
+  stroke: #fffaf7;
+}
+[data-theme='light'] .stack__tip {
+  box-shadow: 0 18px 40px -16px rgba(60, 30, 90, 0.35);
+}
+
+/* Botões e cards de vidro: realce escuro no lugar do branco */
+[data-theme='light'] .glass-btn {
+  background:
+    radial-gradient(120px circle at var(--mx) var(--my), rgba(138, 77, 255, 0.12), transparent 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.55));
+  box-shadow:
+    inset 0 0 0 1px var(--stroke),
+    0 10px 24px -14px rgba(60, 30, 90, 0.45);
+}
+[data-theme='light'] .glass-btn--fluid {
+  color: #fffaf7;
+}
+[data-theme='light'] .glass-btn--fluid::after {
+  opacity: 1;
+}
+[data-theme='light'] .glass-card {
+  background:
+    radial-gradient(400px circle at var(--mx) var(--my), rgba(138, 77, 255, 0.06), transparent 60%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.45));
+  box-shadow: 0 30px 60px -36px rgba(60, 30, 90, 0.35);
+}
+[data-theme='light'] .glass-card--frost::after,
+[data-theme='light'] .project__glass::after {
+  background-image: radial-gradient(rgba(29, 22, 38, 0.08) 1px, transparent 1.3px);
+}
+
+/* Pílulas da stack */
+[data-theme='light'] .bubble {
+  background:
+    radial-gradient(60% 70% at 30% 20%, rgba(255, 255, 255, 0.95), transparent 60%),
+    radial-gradient(80% 90% at 70% 110%, rgba(138, 77, 255, 0.16), transparent 60%),
+    rgba(255, 255, 255, 0.6);
+  box-shadow:
+    inset 0 0 0 1px var(--stroke),
+    0 10px 22px -16px rgba(60, 30, 90, 0.45);
+}
+[data-theme='light'] .bubble:hover,
+[data-theme='light'] .bubble.is-active {
+  box-shadow:
+    inset 0 0 0 1px rgba(138, 77, 255, 0.45),
+    0 14px 30px -14px rgba(138, 77, 255, 0.45);
+}
+
+/* Textos que usavam branco translúcido ou rosado fixo */
+[data-theme='light'] .about__text,
+[data-theme='light'] .case__intro,
+[data-theme='light'] .case__text,
+[data-theme='light'] .case__list li {
+  color: var(--ink-soft);
+}
+
+/* Cards de projeto */
+[data-theme='light'] .project,
+[data-theme='light'] .next {
+  background: #fdf7f3;
+}
+[data-theme='light'] .project__aura {
+  opacity: 0.3;
+}
+[data-theme='light'] .project__glass {
+  border-color: rgba(29, 22, 38, 0.1);
+  background:
+    radial-gradient(380px circle at var(--mx) var(--my), rgba(255, 255, 255, 0.6), transparent 60%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.4));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+[data-theme='light'] .project__top,
+[data-theme='light'] .project__tagline,
+[data-theme='light'] .next__tagline {
+  color: var(--muted);
+}
+[data-theme='light'] .project__desc {
+  color: var(--ink-soft);
+}
+[data-theme='light'] .project__badge {
+  border-color: var(--stroke-strong);
+  background: rgba(255, 255, 255, 0.6);
+}
+[data-theme='light'] .chip {
+  border-color: var(--stroke-strong);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+/* Molduras de celular e navegador: sombras mais leves */
+[data-theme='light'] .project__shot,
+[data-theme='light'] .about__shot {
+  border-color: rgba(29, 22, 38, 0.18);
+  box-shadow: 0 28px 44px -22px rgba(60, 30, 90, 0.45);
+}
+[data-theme='light'] .phone__body {
+  box-shadow:
+    0 40px 80px -36px rgba(60, 30, 90, 0.5),
+    0 0 0 1px rgba(29, 22, 38, 0.15);
+}
+[data-theme='light'] .browser {
+  border-color: rgba(29, 22, 38, 0.15);
+  box-shadow: 0 50px 100px -50px rgba(60, 30, 90, 0.5);
+}
+[data-theme='light'] .browser__bar {
+  background: linear-gradient(180deg, #fffaf7, #efe7e2);
+}
+[data-theme='light'] .browser__bar > span {
+  background: rgba(29, 22, 38, 0.18);
+}
+[data-theme='light'] .browser__url {
+  background: rgba(29, 22, 38, 0.06);
+  color: var(--muted);
+}
+[data-theme='light'] .showcase {
+  background: #efe7e2;
+}
+
+/* Esteira: halos e feixes um pouco mais contidos no claro */
+[data-theme='light'] .stack__logos::before,
+[data-theme='light'] .stack__logos::after {
+  box-shadow: 0 0 10px 0 rgba(138, 77, 255, 0.35);
+}
+
+/* Formulário de contato */
+[data-theme='light'] .field__input {
+  background: rgba(255, 255, 255, 0.75);
+}
+[data-theme='light'] .field__input:focus {
+  box-shadow: 0 0 0 3px rgba(122, 69, 230, 0.18);
+}
+
+/* Página de projeto */
+[data-theme='light'] .case__meta div {
+  background: rgba(255, 255, 255, 0.75);
+}
+[data-theme='light'] .browser {
+  background: #fffaf7;
+}
+
+/* Logos claros (texto do AWS e pinguim do Linux) ficam escuros no tema claro;
+   o hue-rotate devolve o laranja do AWS depois da inversão */
+[data-theme='light'] .marquee__item:is([data-tech='AWS'], [data-tech='Linux']) img {
+  filter: invert(1) hue-rotate(180deg) drop-shadow(0 0 12px rgba(29, 22, 38, 0.18));
+}

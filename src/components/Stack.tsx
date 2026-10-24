@@ -1,6 +1,7 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState, type CSSProperties } from 'react'
 import { useLang } from '../i18n/LangContext'
 import { SectionHeader } from './SectionHeader'
+import { techGlow, techIcons } from '../assets/tech'
 
 type Key = { g: number; i: number }
 
@@ -26,6 +27,23 @@ export function Stack() {
   return (
     <section className="section" id="stack">
       <SectionHeader index="04" label={t.stack.label} title={t.stack.title} />
+      {/* Esteira de logos: três cópias da lista lado a lado para o loop não ter emenda em telas largas */}
+      <div className="stack__logos reveal">
+        <div className="marquee">
+          <div className="marquee__track">
+            {[0, 1, 2].map((copy) => (
+              <ul key={copy} className="marquee__list" aria-hidden={copy > 0 || undefined}>
+                {Object.entries(techIcons).map(([name, src]) => (
+                  <li key={name} className="marquee__item" data-tech={name} style={{ '--glow-c': techGlow[name] } as CSSProperties}>
+                    <img src={src} alt="" width={44} height={44} />
+                    <span>{name}</span>
+                  </li>
+                ))}
+              </ul>
+            ))}
+          </div>
+        </div>
+      </div>
       <div className="stack">
         {t.stack.groups.map((g, gi) => (
           <div

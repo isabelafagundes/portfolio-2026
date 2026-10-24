@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#050508" />
+    <!-- Aplica o tema salvo antes da primeira pintura, para não piscar o escuro -->
+    <script>
+      try {
+        if (localStorage.getItem('theme') === 'light') document.documentElement.dataset.theme = 'light'
+      } catch (e) {}
+    </script>
     <title>Isabela Fagundes · Full-stack</title>
     <meta name="description" content="Portfolio de Isabela Fagundes, desenvolvedora full-stack pleno: interfaces em Flutter, APIs em Go e Java, integrações de pagamento e fluxos fiscais." />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />

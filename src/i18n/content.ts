@@ -21,7 +21,24 @@ type Content = {
   }
   projects: { label: string; title: string; code: string; preview: string; store: string; site: string; viewCase: string; back: string; next: string; stack: string; gallery: string }
   stack: { label: string; title: string; groups: { name: string; items: { name: string; desc: string }[] }[]; extras: string[] }
-  contact: { label: string; title: string; text: string; cta: string; copy: string; copied: string }
+  contact: {
+    label: string
+    title: string
+    text: string
+    copy: string
+    copied: string
+    form: {
+      name: string
+      email: string
+      message: string
+      messagePlaceholder: string
+      send: string
+      sending: string
+      sent: string
+      error: string
+      subject: string
+    }
+  }
   footer: string
 }
 
@@ -90,6 +107,7 @@ export const content: Record<Lang, Content> = {
             { name: 'Design Systems', desc: 'Bibliotecas de componentes, cores e tipografia que mantêm várias telas e produtos consistentes.' },
             { name: 'UI/UX', desc: 'Pensar no fluxo antes da tela: hierarquia, estados de erro e carregamento, e o uso real em loja, muitas vezes com pressa.' },
             { name: 'Interfaces responsivas', desc: 'Layouts que se adaptam de um celular a um totem de tela grande sem perder a legibilidade.' },
+            { name: 'Crashlytics', desc: 'Monitoramento de falhas do Firebase: relatórios de crash em produção para encontrar e corrigir erros mais rápido.' },
           ],
         },
         {
@@ -99,7 +117,7 @@ export const content: Record<Lang, Content> = {
             { name: 'Java', desc: 'Linguagem madura e fortemente tipada, base de boa parte dos sistemas corporativos.' },
             { name: 'Quarkus', desc: 'Framework Java pensado para nuvem e containers, com inicialização rápida e baixo consumo de memória.' },
             { name: 'APIs REST', desc: 'Contratos HTTP claros entre apps e servidor: recursos, verbos, códigos de status e versionamento.' },
-            { name: 'Centrifuge', desc: 'Biblioteca em Go para mensagens em tempo real via WebSocket, que atualiza as telas no instante em que algo muda.' },
+            { name: 'AWS', desc: 'Serviços de nuvem da Amazon para hospedar e rodar aplicações e dados.' },
           ],
         },
         {
@@ -117,7 +135,6 @@ export const content: Record<Lang, Content> = {
           items: [
             { name: 'SiTef', desc: 'Plataforma de pagamento eletrônico muito usada no varejo brasileiro para processar transações de cartão nos terminais.' },
             { name: 'Terminais de pagamento', desc: 'Maquininhas e POS Android onde o app roda junto com o fluxo de pagamento.' },
-            { name: 'NF-e · NFC-e', desc: 'Notas fiscais eletrônicas brasileiras, de produto e de consumidor, emitidas junto com a venda.' },
             { name: 'DLLs', desc: 'Bibliotecas nativas do Windows, chamadas pelo app para conversar com hardware e sistemas de terceiros.' },
             { name: 'Integrações nativas', desc: 'Pontes entre o Flutter e o sistema operacional (Android, Windows) para recursos como impressoras e leitores.' },
           ],
@@ -129,6 +146,7 @@ export const content: Record<Lang, Content> = {
             { name: 'DDD', desc: 'Modelar o código com a linguagem do próprio negócio, em domínios com limites claros.' },
             { name: 'MVC', desc: 'Divide a aplicação em modelo, visão e controle, cada um com sua responsabilidade.' },
             { name: 'Git', desc: 'Versionamento com branches, revisão de código e um histórico fácil de seguir.' },
+            { name: 'Bitbucket', desc: 'Repositórios Git com pull requests e revisão de código em equipe.' },
             { name: 'CI/CD', desc: 'Build, testes e entrega automáticos a cada mudança.' },
             { name: 'Linux', desc: 'Ambiente dos servidores e do terminal no dia a dia.' },
             { name: 'Scrum', desc: 'Trabalho em sprints curtas, com planejamento, revisão e retrospectiva.' },
@@ -141,6 +159,7 @@ export const content: Record<Lang, Content> = {
             { name: 'Desenvolvimento assistido por IA', desc: 'Uso IA para explorar soluções, revisar código e acelerar tarefas repetitivas, sempre conferindo o resultado.' },
             { name: 'Claude Code', desc: 'Agente de programação da Anthropic que trabalha direto no terminal e no código do projeto.' },
             { name: 'Codex', desc: 'Agente de programação da OpenAI para escrever, explicar e refatorar código.' },
+            { name: 'CircleCI', desc: 'Plataforma de CI/CD para build, testes e deploy automáticos. Minha experiência com ela vem do desenvolvimento assistido por IA.' },
           ],
         },
       ],
@@ -150,9 +169,19 @@ export const content: Record<Lang, Content> = {
       label: 'Contato',
       title: 'Vamos criar algo juntos?',
       text: 'Estou aberta a novas oportunidades e conversas sobre desenvolvimento full-stack, integrações e produto.',
-      cta: 'Enviar e-mail',
       copy: 'Copiar e-mail',
       copied: 'Copiado!',
+      form: {
+        name: 'Nome',
+        email: 'E-mail',
+        message: 'Mensagem',
+        messagePlaceholder: 'Conte um pouco sobre a oportunidade, o projeto ou a sua dúvida.',
+        send: 'Enviar mensagem',
+        sending: 'Enviando...',
+        sent: 'Mensagem enviada! Respondo assim que puder.',
+        error: 'Não consegui enviar agora. Tente de novo ou escreva direto para o meu e-mail.',
+        subject: 'Nova mensagem pelo portfolio',
+      },
     },
     footer: 'Criado com desenvolvimento assistido por IA.',
   },
@@ -220,6 +249,7 @@ export const content: Record<Lang, Content> = {
             { name: 'Design Systems', desc: 'Component libraries, colors and type that keep many screens and products consistent.' },
             { name: 'UI/UX', desc: 'Thinking about the flow before the screen: hierarchy, error and loading states, and real in-store use, often in a hurry.' },
             { name: 'Responsive interfaces', desc: 'Layouts that adapt from a phone to a large kiosk screen without losing readability.' },
+            { name: 'Crashlytics', desc: 'Firebase crash reporting: production crash reports to find and fix errors faster.' },
           ],
         },
         {
@@ -229,7 +259,7 @@ export const content: Record<Lang, Content> = {
             { name: 'Java', desc: 'A mature, strongly typed language behind many enterprise systems.' },
             { name: 'Quarkus', desc: 'A Java framework built for cloud and containers, with fast startup and low memory use.' },
             { name: 'REST APIs', desc: 'Clear HTTP contracts between apps and server: resources, verbs, status codes and versioning.' },
-            { name: 'Centrifuge', desc: 'A Go library for real-time messaging over WebSocket that updates screens the moment something changes.' },
+            { name: 'AWS', desc: 'Amazon’s cloud services for hosting and running applications and data.' },
           ],
         },
         {
@@ -247,7 +277,6 @@ export const content: Record<Lang, Content> = {
           items: [
             { name: 'SiTef', desc: 'An electronic payment platform widely used in Brazilian retail to process card transactions on terminals.' },
             { name: 'Payment terminals', desc: 'Card machines and Android POS devices where the app runs alongside the payment flow.' },
-            { name: 'NF-e · NFC-e', desc: 'Brazilian electronic invoices, for goods and for consumers, issued along with the sale.' },
             { name: 'DLLs', desc: 'Native Windows libraries the app calls to talk to hardware and third-party systems.' },
             { name: 'Native integrations', desc: 'Bridges between Flutter and the operating system (Android, Windows) for things like printers and scanners.' },
           ],
@@ -259,6 +288,7 @@ export const content: Record<Lang, Content> = {
             { name: 'DDD', desc: 'Modeling code with the business\'s own language, in domains with clear boundaries.' },
             { name: 'MVC', desc: 'Splits an app into model, view and controller, each with its own job.' },
             { name: 'Git', desc: 'Version control with branches, code review and a history that\'s easy to follow.' },
+            { name: 'Bitbucket', desc: 'Git repositories with pull requests and team code review.' },
             { name: 'CI/CD', desc: 'Automated build, tests and delivery on every change.' },
             { name: 'Linux', desc: 'The server environment and everyday terminal.' },
             { name: 'Scrum', desc: 'Work in short sprints with planning, review and retrospective.' },
@@ -271,6 +301,7 @@ export const content: Record<Lang, Content> = {
             { name: 'AI-assisted development', desc: 'I use AI to explore solutions, review code and speed up repetitive tasks, always checking the output.' },
             { name: 'Claude Code', desc: 'Anthropic\'s coding agent that works right in the terminal and the project\'s code.' },
             { name: 'Codex', desc: 'OpenAI\'s coding agent for writing, explaining and refactoring code.' },
+            { name: 'CircleCI', desc: 'CI/CD platform for automated builds, tests and deploys. My experience with it comes from AI-assisted development.' },
           ],
         },
       ],
@@ -280,9 +311,19 @@ export const content: Record<Lang, Content> = {
       label: 'Contact',
       title: "Let's build something together",
       text: "I'm open to new opportunities and conversations about full-stack development, integrations and product.",
-      cta: 'Send an email',
       copy: 'Copy email',
       copied: 'Copied!',
+      form: {
+        name: 'Name',
+        email: 'Email',
+        message: 'Message',
+        messagePlaceholder: 'Tell me a bit about the opportunity, the project or your question.',
+        send: 'Send message',
+        sending: 'Sending...',
+        sent: 'Message sent! I’ll get back to you as soon as I can.',
+        error: 'I couldn’t send it right now. Try again or write straight to my email.',
+        subject: 'New message from the portfolio',
+      },
     },
     footer: 'Built with AI-assisted development.',
   },
