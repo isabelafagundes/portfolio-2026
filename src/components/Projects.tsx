@@ -59,17 +59,12 @@ export function Projects() {
                 <ProjectShots project={p} />
                 <div className="project__body">
                   <p className="project__tagline">{c.tagline}</p>
-                  <h3 className="project__name">
-                    {/* O link cobre o card inteiro via ::after */}
-                    <Link href={projectPath(p.slug)} className="project__link">
-                      {c.name}
-                    </Link>
-                  </h3>
+                  <h3 className="project__name">{c.name}</h3>
                   <p className="project__desc">{c.summary}</p>
-                  {/* Parece botão de propósito; o clique vem do link do título, que cobre o card */}
-                  <span className="project__cta" aria-hidden="true">
+                  {/* Só o botão abre o projeto: tocar no resto do card não atrapalha o scroll */}
+                  <Link href={projectPath(p.slug)} className="project__cta" aria-label={`${t.projects.viewCase}: ${c.name}`}>
                     {t.projects.viewCase} <ArrowIcon />
-                  </span>
+                  </Link>
                   <ul className="project__stack" aria-label={t.projects.stack}>
                     {p.stack.map((s) => (
                       <li key={s}>{s}</li>
