@@ -12,7 +12,9 @@ export function useReveal() {
           }
         }
       },
-      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' },
+      // Revela assim que o topo do bloco entra na tela (não 15% dele): em blocos altos no
+      // celular, isso fazia o conteúdo só ficar nítido depois de passar da metade da tela
+      { threshold: 0, rootMargin: '0px 0px -6% 0px' },
     )
     const observe = () => document.querySelectorAll('.reveal:not(.is-visible)').forEach((el) => io.observe(el))
     observe()
