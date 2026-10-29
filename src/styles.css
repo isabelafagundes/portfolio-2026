@@ -2023,14 +2023,6 @@ button.bubble:focus-visible {
   transition: border-color 0.25s;
 }
 
-/* O item inteiro abre a credencial */
-.cert__link::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-}
-
 .cert__link svg {
   width: 18px;
   height: 18px;
@@ -2038,12 +2030,8 @@ button.bubble:focus-visible {
 }
 
 .cert__link:focus-visible {
-  outline: none;
-}
-
-.cert:has(.cert__link:focus-visible) {
   outline: 2px solid var(--glow);
-  outline-offset: -2px;
+  outline-offset: 4px;
 }
 
 /* Efeitos de hover só com mouse: no toque o :hover fica preso depois de rolar
@@ -2068,11 +2056,11 @@ button.bubble:focus-visible {
     mix-blend-mode: overlay;
   }
 
-  .cert:hover .cert__link {
+  .cert__link:hover {
     border-color: var(--accent);
   }
 
-  .cert:hover .cert__link svg {
+  .cert__link:hover svg {
     transform: translate(2px, -2px);
   }
 }
