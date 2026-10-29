@@ -33,10 +33,37 @@
 }
 
 /* Superfícies sólidas */
-[data-theme='light'] .nav,
-[data-theme='light'] .nav--scrolled {
-  background: #fffaf7;
-  box-shadow: 0 10px 30px -18px rgba(60, 30, 90, 0.35);
+/* Barra: véu claro, vidro leitoso e neon violeta mais contido */
+[data-theme='light'] .nav::before {
+  background: linear-gradient(180deg, rgba(246, 240, 236, 0.94), rgba(246, 240, 236, 0.65) 60%, transparent);
+}
+[data-theme='light'] .nav__glass {
+  border-color: rgba(29, 22, 38, 0.1);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.6) 55%, rgba(138, 77, 255, 0.06) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 20px rgba(138, 77, 255, 0.05),
+    0 14px 30px -16px rgba(60, 30, 90, 0.35);
+}
+[data-theme='light'] .nav__links a:hover,
+[data-theme='light'] .nav__links a:focus-visible {
+  color: #6a35d8;
+  text-shadow: 0 0 10px rgba(138, 77, 255, 0.3);
+}
+[data-theme='light'] .nav__links a[aria-current] {
+  color: #6a35d8;
+  text-shadow: 0 0 10px rgba(138, 77, 255, 0.45), 0 0 22px rgba(138, 77, 255, 0.25);
+}
+[data-theme='light'] .nav__links a[aria-current]::after {
+  box-shadow: 0 0 6px rgba(138, 77, 255, 0.8), 0 0 14px rgba(232, 70, 111, 0.4);
+}
+[data-theme='light'] .nav__cta:hover {
+  background: #3a2a52;
+}
+@media (max-width: 900px) {
+  [data-theme='light'] .nav__glass {
+    background: rgba(255, 250, 247, 0.96);
+  }
 }
 [data-theme='light'] .hero__window-bar,
 [data-theme='light'] .hero__ui,
@@ -144,9 +171,11 @@
   border-color: var(--stroke-strong);
   background: rgba(255, 255, 255, 0.6);
 }
-[data-theme='light'] .chip {
-  border-color: var(--stroke-strong);
-  background: rgba(255, 255, 255, 0.55);
+[data-theme='light'] .project__stack {
+  color: var(--muted);
+}
+[data-theme='light'] .project__cta {
+  box-shadow: 0 10px 24px -12px rgba(60, 30, 90, 0.5);
 }
 
 /* Molduras de celular e navegador: sombras mais leves */
@@ -184,6 +213,20 @@
   box-shadow: 0 0 10px 0 rgba(138, 77, 255, 0.35);
 }
 
+/* Certificações: halo e sombra do selo mais leves no claro */
+[data-theme='light'] .cert__halo {
+  opacity: 0.45;
+}
+[data-theme='light'] .cert:hover .cert__halo {
+  opacity: 0.7;
+}
+[data-theme='light'] .cert__badge::after {
+  background: rgba(60, 30, 90, 0.3);
+}
+[data-theme='light'] .certs::before {
+  box-shadow: 0 0 10px 0 rgba(138, 77, 255, 0.35);
+}
+
 /* Formulário de contato */
 [data-theme='light'] .field__input {
   background: rgba(255, 255, 255, 0.75);
@@ -200,8 +243,8 @@
   background: #fffaf7;
 }
 
-/* Logos claros (texto do AWS e pinguim do Linux) ficam escuros no tema claro;
+/* Logos claros (texto do AWS, pinguim do Linux, CircleCI e OpenAI) ficam escuros no tema claro;
    o hue-rotate devolve o laranja do AWS depois da inversão */
-[data-theme='light'] .marquee__item:is([data-tech='AWS'], [data-tech='Linux']) img {
+[data-theme='light'] .marquee__item:is([data-tech='AWS'], [data-tech='Linux'], [data-tech='CircleCI'], [data-tech='Codex']) img {
   filter: invert(1) hue-rotate(180deg) drop-shadow(0 0 12px rgba(29, 22, 38, 0.18));
 }

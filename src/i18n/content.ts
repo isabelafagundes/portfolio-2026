@@ -4,6 +4,7 @@ export const links = {
   email: 'isabelafagundesdev@gmail.com',
   linkedin: 'https://linkedin.com/in/isabeladev',
   github: 'https://github.com/isabelafagundes',
+  resume: 'https://drive.google.com/file/d/1NQs71bawfkZ0qnSOgkci6VWecfctFbNG/view?usp=sharing',
 }
 
 type Content = {
@@ -19,14 +20,22 @@ type Content = {
     highlights: { title: string; text: string }[]
     education: { label: string; course: string; school: string }
   }
-  projects: { label: string; title: string; code: string; preview: string; store: string; site: string; viewCase: string; back: string; next: string; stack: string; gallery: string }
-  stack: { label: string; title: string; groups: { name: string; items: { name: string; desc: string }[] }[]; extras: string[] }
+  projects: { label: string; title: string; code: string; preview: string; store: string; site: string; videos: string; videosNote: string; unmute: string; mute: string; viewCase: string; back: string; next: string; stack: string; gallery: string }
+  stack: {
+    label: string
+    title: string
+    groups: { name: string; items: { name: string; desc: string }[] }[]
+    certs: { issuer: string; name: string; url: string; image: string; accent: string; imageAlt: string }[]
+    certsLabel: string
+    credential: string
+  }
   contact: {
     label: string
     title: string
     text: string
     copy: string
     copied: string
+    resume: string
     form: {
       name: string
       email: string
@@ -89,6 +98,10 @@ export const content: Record<Lang, Content> = {
       preview: 'Preview',
       store: 'Google Play',
       site: 'Página do produto',
+      videos: 'Em vídeo',
+      videosNote: 'Vídeos da Hipcom ERP no YouTube.',
+      unmute: 'Ativar som',
+      mute: 'Desativar som',
       viewCase: 'Ver projeto',
       back: 'Voltar',
       next: 'Próximo projeto',
@@ -163,7 +176,26 @@ export const content: Record<Lang, Content> = {
           ],
         },
       ],
-      extras: ['Microsoft Azure Fundamentals (AZ-900)', 'Inglês A2 (TOEIC)'],
+      certs: [
+        {
+          issuer: 'Microsoft · AZ-900 · 2022',
+          name: 'Microsoft Certified: Azure Fundamentals',
+          url: 'https://www.credly.com/badges/3c7a3f06-16e1-4177-b7a8-acd287c554cc',
+          image: '/certs/azure-fundamentals.webp',
+          accent: '#3b8be6',
+          imageAlt: 'Selo Microsoft Certified: Azure Fundamentals',
+        },
+        {
+          issuer: 'DIO · Bootcamp GFT · 55 horas · 2022',
+          name: 'GFT Start Woman Java',
+          url: 'https://www.dio.me/certificate/AB2640FC/share',
+          image: '/certs/gft-start-woman-java.webp',
+          accent: '#e05ad6',
+          imageAlt: 'Selo do bootcamp GFT Start Woman Java',
+        },
+      ],
+      certsLabel: 'Certificações',
+      credential: 'Ver credencial',
     },
     contact: {
       label: 'Contato',
@@ -171,6 +203,7 @@ export const content: Record<Lang, Content> = {
       text: 'Estou aberta a novas oportunidades e conversas sobre desenvolvimento full-stack, integrações e produto.',
       copy: 'Copiar e-mail',
       copied: 'Copiado!',
+      resume: 'Ver currículo',
       form: {
         name: 'Nome',
         email: 'E-mail',
@@ -231,6 +264,10 @@ export const content: Record<Lang, Content> = {
       preview: 'Preview',
       store: 'Google Play',
       site: 'Product page',
+      videos: 'On video',
+      videosNote: 'Videos by Hipcom ERP on YouTube.',
+      unmute: 'Turn sound on',
+      mute: 'Turn sound off',
       viewCase: 'View project',
       back: 'Back',
       next: 'Next project',
@@ -305,7 +342,26 @@ export const content: Record<Lang, Content> = {
           ],
         },
       ],
-      extras: ['Microsoft Azure Fundamentals (AZ-900)', 'English A2 (TOEIC)'],
+      certs: [
+        {
+          issuer: 'Microsoft · AZ-900 · 2022',
+          name: 'Microsoft Certified: Azure Fundamentals',
+          url: 'https://www.credly.com/badges/3c7a3f06-16e1-4177-b7a8-acd287c554cc',
+          image: '/certs/azure-fundamentals.webp',
+          accent: '#3b8be6',
+          imageAlt: 'Microsoft Certified: Azure Fundamentals badge',
+        },
+        {
+          issuer: 'DIO · GFT bootcamp · 55 hours · 2022',
+          name: 'GFT Start Woman Java',
+          url: 'https://www.dio.me/certificate/AB2640FC/share',
+          image: '/certs/gft-start-woman-java.webp',
+          accent: '#e05ad6',
+          imageAlt: 'GFT Start Woman Java bootcamp badge',
+        },
+      ],
+      certsLabel: 'Certifications',
+      credential: 'View credential',
     },
     contact: {
       label: 'Contact',
@@ -313,6 +369,7 @@ export const content: Record<Lang, Content> = {
       text: "I'm open to new opportunities and conversations about full-stack development, integrations and product.",
       copy: 'Copy email',
       copied: 'Copied!',
+      resume: 'View résumé',
       form: {
         name: 'Name',
         email: 'Email',

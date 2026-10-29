@@ -3,7 +3,7 @@ import { useLang } from '../i18n/LangContext'
 import { links } from '../i18n/content'
 import { onPointerGlow } from '../hooks/usePointerGlow'
 import { GlassButton } from './GlassButton'
-import { ArrowIcon, CopyIcon, GithubIcon, LinkedinIcon, MailIcon } from './icons'
+import { ArrowIcon, CopyIcon, DocIcon, GithubIcon, LinkedinIcon, MailIcon } from './icons'
 
 /** Mesmo formulário do Formspree usado no portfolio em Flutter: a mensagem chega no e-mail. */
 const FORM_ENDPOINT = 'https://formspree.io/f/mwplegwr'
@@ -56,6 +56,9 @@ export function Contact() {
           <div className="contact__actions">
             <GlassButton type="button" onClick={copy} icon={<CopyIcon />} aria-live="polite">
               {copied ? t.contact.copied : t.contact.copy}
+            </GlassButton>
+            <GlassButton href={links.resume} target="_blank" rel="noreferrer" icon={<DocIcon />}>
+              {t.contact.resume}
             </GlassButton>
           </div>
           <ul className="socials">

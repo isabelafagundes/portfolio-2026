@@ -30,6 +30,8 @@ export type Project = {
   featured?: boolean
   stack: string[]
   links: { site?: string; store?: string; preview?: string; github?: string[] }
+  /** Vídeos do YouTube incorporados na página: `id` do vídeo e formato (horizontal ou Short). */
+  videos?: { id: string; kind: 'video' | 'short' }[]
   /** Destaque no topo da página. */
   mockups: Mockup[]
   /** Telas extras, exibidas numa faixa rolável com legenda (o `alt`). */
@@ -48,6 +50,11 @@ export const projects: Project[] = [
       site: 'https://hipcomerp.com.br/produtos/aplicativos/atendimento',
       store: 'https://play.google.com/store/apps/details?id=br.com.hipcom.mercurio_app',
     },
+    videos: [
+      { id: '7q9FV8THTJo', kind: 'video' },
+      { id: 'v9Aiy64jNgY', kind: 'short' },
+      { id: 'CTFVcVYDLx4', kind: 'short' },
+    ],
     mockups: [
       { kind: 'phone', src: '/projects/atendimento/home.webp', ratio: 720 / 1461, alt: { pt: 'Módulos do app', en: 'App modules' } },
       { kind: 'phone', src: '/projects/atendimento/categories.webp', ratio: 720 / 1461, alt: { pt: 'Cardápio por categorias', en: 'Menu by category' } },
@@ -351,16 +358,9 @@ export const projects: Project[] = [
       { kind: 'phone', src: '/projects/leituramiga/home.webp', ratio: 720 / 1356, alt: { pt: 'Catálogo no celular', en: 'Catalog on mobile' } },
     ],
     gallery: [
-      {
-        kind: 'browser',
-        src: '/projects/leituramiga/desktop-book-form.webp',
-        url: 'leituramiga.vercel.app',
-        alt: { pt: 'Cadastro de livro', en: 'Adding a book' },
-      },
       { kind: 'phone', src: '/projects/leituramiga/book.webp', ratio: 720 / 1356, alt: { pt: 'Detalhes do livro', en: 'Book details' } },
       { kind: 'phone', src: '/projects/leituramiga/add-book.webp', ratio: 720 / 1356, alt: { pt: 'Cadastro de livro no celular', en: 'Adding a book on mobile' } },
       { kind: 'phone', src: '/projects/leituramiga/profile.webp', ratio: 720 / 1356, alt: { pt: 'Perfil do leitor', en: 'Reader profile' } },
-      { kind: 'phone', src: '/projects/leituramiga/requests.webp', ratio: 720 / 1356, tone: '#454a53', alt: { pt: 'Solicitações em andamento', en: 'Ongoing requests' } },
       { kind: 'phone', src: '/projects/leituramiga/request-detail.webp', ratio: 720 / 1356, tone: '#454a53', alt: { pt: 'Detalhes da solicitação', en: 'Request details' } },
       { kind: 'phone', src: '/projects/leituramiga/menu.webp', ratio: 720 / 1356, tone: '#37393f', alt: { pt: 'Menu com ajuste de fonte e tema', en: 'Menu with font size and theme settings' } },
     ],

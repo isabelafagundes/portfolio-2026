@@ -1,9 +1,24 @@
-import { useLayoutEffect, useRef, useState, type CSSProperties } from 'react'
+import { useLayoutEffect, useRef, useState, type CSSProperties, type PointerEvent } from 'react'
 import { useLang } from '../i18n/LangContext'
 import { SectionHeader } from './SectionHeader'
 import { techGlow, techIcons } from '../assets/tech'
+import { ArrowIcon } from './icons'
 
 type Key = { g: number; i: number }
+
+/** Inclinação do selo: --tx/--ty vão de -1 a 1 conforme o cursor. */
+function onCertTilt(e: PointerEvent<HTMLElement>) {
+  if (e.pointerType !== 'mouse') return
+  const el = e.currentTarget
+  const r = el.getBoundingClientRect()
+  el.style.setProperty('--tx', (((e.clientX - r.left) / r.width) * 2 - 1).toFixed(3))
+  el.style.setProperty('--ty', (((e.clientY - r.top) / r.height) * 2 - 1).toFixed(3))
+}
+
+function onCertReset(e: PointerEvent<HTMLElement>) {
+  e.currentTarget.style.setProperty('--tx', '0')
+  e.currentTarget.style.setProperty('--ty', '0')
+}
 
 export function Stack() {
   const { t } = useLang()
@@ -88,11 +103,40 @@ export function Stack() {
           </div>
         ))}
       </div>
-      <ul className="stack__extras reveal">
-        {t.stack.extras.map((x) => (
-          <li key={x}>{x}</li>
-        ))}
-      </ul>
+      {/* Certificações: faixa entre fios fechando a seção, como a esteira de logos que a abre;
+          o selo inclina em 3D seguindo o cursor */}
+      <div className="certs reveal">
+        <h3 className="certs__label eyebrow">{t.stack.certsLabel}</h3>
+        <ul className="certs__list">
+          {t.stack.certs.map((c) => (
+            <li
+              key={c.url}
+              className="cert"
+              style={{ '--accent': c.accent, '--badge': `url(${c.image})` } as CSSProperties}
+              onPointerMove={onCertTilt}
+              onPointerLeave={onCertReset}
+            >
+              <div className="cert__stage">
+                <span className="cert__halo" aria-hidden="true" />
+                <span className="cert__badge">
+                  <span className="cert__float">
+                    <img src={c.image} alt={c.imageAlt} width={180} height={180} loading="lazy" />
+                    <span className="cert__shine" aria-hidden="true" />
+                  </span>
+                </span>
+              </div>
+              <div className="cert__text">
+                <p className="cert__issuer">{c.issuer}</p>
+                <h4 className="cert__name">{c.name}</h4>
+                <a className="cert__link" href={c.url} target="_blank" rel="noreferrer">
+                  {t.stack.credential}
+                  <ArrowIcon />
+                </a>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   )
 }

@@ -16,6 +16,13 @@ export const ArrowIcon = () => (
   </svg>
 )
 
+export const DocIcon = () => (
+  <svg {...base}>
+    <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
+    <path d="M14 3v5h5M9 13h6M9 17h4" />
+  </svg>
+)
+
 export const MailIcon = () => (
   <svg {...base}>
     <rect x="3" y="5" width="18" height="14" rx="3" />
@@ -46,6 +53,20 @@ export const CopyIcon = () => (
 export const PlayIcon = () => (
   <svg {...base}>
     <path d="M6 4.5v15a1 1 0 0 0 1.5.86l12.6-7.5a1 1 0 0 0 0-1.72L7.5 3.64A1 1 0 0 0 6 4.5Z" />
+  </svg>
+)
+
+export const SoundOffIcon = () => (
+  <svg {...base}>
+    <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" />
+    <path d="m16 9.5 5 5M21 9.5l-5 5" />
+  </svg>
+)
+
+export const SoundOnIcon = () => (
+  <svg {...base}>
+    <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" />
+    <path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" />
   </svg>
 )
 

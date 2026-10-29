@@ -33,23 +33,44 @@
   border-color: var(--stroke-strong);
 }
 
+/* "Ver projeto": botão sólido logo após a descrição, o único elemento cheio do card */
 .project__cta {
   display: inline-flex;
+  align-self: flex-start;
   align-items: center;
-  gap: 8px;
-  margin-top: 4px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8);
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
 }
 
 .project__cta svg {
+  width: 16px;
+  height: 16px;
   transition: transform 0.4s var(--ease);
 }
 
+.project:hover .project__cta {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px -12px rgba(155, 92, 255, 0.55);
+}
+
 .project:hover .project__cta svg {
-  transform: translate(3px, -3px);
+  transform: translate(2px, -2px);
+}
+
+/* No celular o botão ocupa a largura do card */
+@media (max-width: 720px) {
+  .project__cta {
+    align-self: stretch;
+    justify-content: center;
+  }
 }
 
 /* ============ Página de projeto ============ */
@@ -410,6 +431,123 @@
   color: var(--ink);
 }
 
+/* ============ Vídeos ============ */
+.videos {
+  display: grid;
+  gap: 28px;
+  padding-top: clamp(72px, 10vw, 128px);
+}
+
+.videos__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
+}
+
+.videos__note {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* Shorts em 9:16 definem a altura da linha; o vídeo horizontal ocupa o resto da largura e estica até ela */
+.videos__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(16px, 2vw, 24px);
+}
+
+.videos__item--short .videos__frame {
+  aspect-ratio: 9 / 16;
+}
+
+.videos__frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--stroke);
+  border-radius: 24px;
+  background: #110e1a;
+  overflow: hidden;
+}
+
+/* O iframe ignora o mouse para o YouTube não sobrepor título e controles; o som fica no botão do canto */
+.videos__frame {
+  position: relative;
+}
+
+.videos__frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  pointer-events: none;
+}
+
+.videos__frame.is-still iframe {
+  pointer-events: auto;
+}
+
+/* Botão de som de vidro no canto inferior direito */
+.videos__sound {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  background:
+    radial-gradient(60% 70% at 30% 20%, rgba(255, 255, 255, 0.35), transparent 60%),
+    rgba(14, 13, 23, 0.45);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.22),
+    0 10px 24px -10px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: scale 0.3s var(--ease), background-color 0.3s var(--ease);
+}
+
+.videos__sound svg {
+  width: 20px;
+  height: 20px;
+}
+
+.videos__sound:hover {
+  scale: 1.08;
+}
+
+.videos__sound.is-on {
+  background:
+    radial-gradient(60% 70% at 30% 20%, rgba(255, 255, 255, 0.4), transparent 60%),
+    rgba(155, 92, 255, 0.6);
+}
+
+.videos__sound:focus-visible {
+  outline: 2px solid var(--glow);
+  outline-offset: 3px;
+}
+
+/* Telas estreitas: vídeo na largura toda e os dois Shorts lado a lado embaixo */
+@media (max-width: 760px) {
+  .videos__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .videos__item--video {
+    grid-column: 1 / -1;
+  }
+  .videos__item--video .videos__frame {
+    aspect-ratio: 16 / 9;
+  }
+}
+
 /* ============ Conteúdo do estudo de caso ============ */
 .case__content {
   display: grid;
@@ -585,6 +723,39 @@
   align-items: center;
   gap: 10px;
   color: rgba(255, 255, 255, 0.8);
+}
+
+/* Prints do próximo projeto: à direita, cortados pela base do card, e sobem um pouco no hover */
+.next .project__shots {
+  margin: 8px 0 calc(-1 * clamp(36px, 6vw, 72px) - 40px);
+  transition: transform 0.6s var(--ease);
+}
+
+.next:hover .project__shots {
+  transform: translateY(-8px);
+}
+
+@media (min-width: 721px) {
+  .next {
+    min-height: 320px;
+    justify-content: center;
+  }
+  .next > :not(.next__aura, .project__shots) {
+    max-width: calc(100% - clamp(320px, 34vw, 440px));
+  }
+  .next .project__shots {
+    position: absolute;
+    right: clamp(24px, 5vw, 72px);
+    bottom: -40px;
+    margin: 0;
+    padding: 0;
+  }
+  .next .project__shot {
+    width: clamp(110px, 10vw, 140px);
+  }
+  .next .project__shot--browser {
+    width: clamp(220px, 22vw, 280px);
+  }
 }
 
 .case__footer {

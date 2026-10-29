@@ -6,6 +6,8 @@ import { Link, projectPath } from '../router'
 import { GlassButton } from './GlassButton'
 import { Gallery, MockupView } from './Mockups'
 import { ArrowIcon, GithubIcon, PlayIcon } from './icons'
+import { Videos } from './Videos'
+import { ProjectShots } from './Projects'
 
 export function ProjectPage({ project }: { project: Project }) {
   const { t, lang } = useLang()
@@ -90,6 +92,10 @@ export function ProjectPage({ project }: { project: Project }) {
       </section>
 
       {project.gallery && <Gallery items={project.gallery} lang={lang} title={t.projects.gallery} tone={project.screenTone} />}
+
+      {project.videos && (
+        <Videos videos={project.videos} title={t.projects.videos} note={t.projects.videosNote} labels={t.projects} name={c.name} />
+      )}
 
       <div className="case__content">
         <section className="case__block reveal">
@@ -176,6 +182,7 @@ export function ProjectPage({ project }: { project: Project }) {
           <span className="next__tagline">
             {next.copy[lang].tagline} <ArrowIcon />
           </span>
+          <ProjectShots project={next} full decorative />
         </Link>
       </nav>
 

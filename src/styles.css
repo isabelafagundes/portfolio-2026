@@ -197,134 +197,296 @@ main {
 }
 
 /* ============ Navegação ============ */
+/* Três zonas na largura toda: marca | seções no vidro | idioma, tema e contato */
 .nav {
   position: fixed;
-  top: 16px;
-  left: 50%;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 10;
-  transform: translateX(-50%);
-  /* Pílula compacta: só a largura do conteúdo */
-  width: max-content;
-  max-width: calc(100% - 32px);
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  justify-content: space-between;
-  gap: clamp(16px, 2.5vw, 36px);
-  padding: 10px;
-  border-radius: 999px;
-  /* Pílula sólida desde o topo, para a navegação não ficar solta sobre o hero */
-  background: #15131f;
-  border: 1px solid var(--stroke);
+  gap: 16px;
+  padding: 16px clamp(16px, 2.6vw, 36px);
 }
 
-.nav__logo {
+/* Véu escuro atrás da barra ao rolar: marca e botões continuam legíveis sobre o conteúdo */
+.nav::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 -28px;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(14, 13, 23, 0.92), rgba(14, 13, 23, 0.6) 60%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease);
+}
+
+.nav--scrolled::before {
+  opacity: 1;
+}
+
+/* Marca: "IF" enquanto o nome grande do hero está na tela; depois o nome inteiro */
+.nav__brand {
+  position: relative;
+  justify-self: start;
   display: inline-grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 1px solid var(--stroke);
+  align-items: center;
+  min-height: 44px;
   font-family: var(--serif);
-  font-style: italic;
-  font-size: 1.15rem;
+  font-size: 1.4rem;
   line-height: 1;
-  transition: border-color 0.25s;
+  white-space: nowrap;
 }
 
-.nav__logo:hover {
-  border-color: var(--stroke-strong);
+.nav__mono,
+.nav__name {
+  grid-area: 1 / 1;
+  transition: opacity 0.35s, transform 0.5s var(--ease);
 }
 
-/* Mini vinil: gira devagar sempre e acelera ao passar o mouse */
+.nav__mono {
+  font-style: italic;
+}
+
+.nav__name {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.nav--named .nav__mono {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+.nav--named .nav__name {
+  opacity: 1;
+  transform: none;
+}
+
+.nav__brand:focus-visible {
+  outline: 2px solid var(--glow);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+/* Vidro: desfoque com saturação, tom uniforme e um fio de brilho na aresta de cima */
+.nav__glass {
+  position: relative;
+  isolation: isolate;
+  padding: 5px 6px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(155, 92, 255, 0.05));
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+  backdrop-filter: blur(18px) saturate(170%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 0 20px rgba(199, 162, 255, 0.06),
+    0 14px 34px -14px rgba(0, 0, 0, 0.75);
+}
+
+/* Grão fino no vidro inteiro (sem faixa de reflexo) */
+.nav__glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(rgba(255, 255, 255, 0.025) 0.6px, transparent 1px) 0 0 / 2px 2px;
+  pointer-events: none;
+}
+
+.nav__glass::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 18%;
+  right: 18%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  pointer-events: none;
+}
+
 .nav__links {
   display: flex;
-  gap: 4px;
+  gap: 2px;
 }
 
-/* Hover cromado: o texto revela o gradiente com um reflexo passando
-   e um fio iridescente cresce do centro */
+/* Contato só entra na lista no menu do celular; no desktop ele é o botão da direita */
+.nav__links-contact {
+  display: none;
+}
+
+/* Neon: hover acende pela metade, a seção atual acende inteira */
 .nav__links a {
   position: relative;
   display: block;
-  padding: 8px 14px;
-  font-size: 0.85rem;
+  padding: 9px 16px;
+  font-size: 0.875rem;
+  white-space: nowrap;
   color: var(--muted);
-  background: var(--chrome);
-  background-size: 100% 220%;
-  background-position: 50% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  transition: color 0.35s var(--ease), filter 0.35s var(--ease);
+  transition: color 0.3s, text-shadow 0.3s;
 }
 
 .nav__links a::after {
   content: '';
   position: absolute;
-  left: 14px;
-  right: 14px;
-  bottom: 2px;
-  height: 1px;
-  border-radius: 1px;
-  background: linear-gradient(90deg, transparent, var(--glow), #ffffff, var(--secondary), transparent);
-  box-shadow: 0 0 8px rgba(199, 162, 255, 0.8);
+  left: 16px;
+  right: 16px;
+  bottom: 3px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--glow);
+  box-shadow: 0 0 8px rgba(199, 162, 255, 0.7);
   transform: scaleX(0);
   opacity: 0;
-  transition: transform 0.45s var(--ease), opacity 0.3s;
+  transition: transform 0.45s var(--ease), opacity 0.3s, background 0.3s, box-shadow 0.3s;
 }
 
 .nav__links a:hover,
 .nav__links a:focus-visible {
-  color: transparent;
-  filter: drop-shadow(0 0 10px rgba(199, 162, 255, 0.45));
-  animation: nav-shine 1.4s var(--ease) both;
+  color: #e9dcff;
+  text-shadow: 0 0 8px rgba(199, 162, 255, 0.6);
 }
 
 .nav__links a:hover::after,
 .nav__links a:focus-visible::after {
+  transform: scaleX(0.5);
+  opacity: 0.7;
+}
+
+.nav__links a[aria-current] {
+  color: #fff;
+  text-shadow:
+    0 0 6px rgba(199, 162, 255, 0.9),
+    0 0 16px rgba(155, 92, 255, 0.8),
+    0 0 32px rgba(155, 92, 255, 0.5);
+}
+
+.nav__links a[aria-current]::after {
   transform: scaleX(1);
   opacity: 1;
+  background: linear-gradient(90deg, var(--primary), #fff, var(--secondary));
+  box-shadow:
+    0 0 6px rgba(199, 162, 255, 1),
+    0 0 14px rgba(155, 92, 255, 0.9),
+    0 0 28px rgba(255, 111, 142, 0.5);
 }
 
-@keyframes nav-shine {
-  from {
-    background-position: 50% 100%;
-  }
-  to {
-    background-position: 50% 0%;
-  }
+.nav__links a:focus-visible {
+  outline: 2px solid var(--glow);
+  outline-offset: -2px;
+  border-radius: 9px;
 }
 
-/* Troca de tema (sol/lua), ao lado do idioma */
+.nav__actions {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Idioma como texto: o ativo em tinta, o outro apagado */
+.nav__lang {
+  display: inline-flex;
+  align-items: center;
+  color: var(--faint);
+  font: 600 0.75rem var(--sans);
+}
+
+.nav__lang button {
+  min-width: 32px;
+  min-height: 44px;
+  border: 0;
+  background: none;
+  color: var(--faint);
+  font: inherit;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: color 0.25s;
+}
+
+.nav__lang button:hover,
+.nav__lang button[aria-pressed='true'] {
+  color: var(--ink);
+}
+
+.nav__lang button:focus-visible {
+  outline: 2px solid var(--glow);
+  outline-offset: -4px;
+  border-radius: 8px;
+}
+
+/* Troca de tema (sol/lua) */
 .nav__theme {
   display: inline-grid;
   place-items: center;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
+  border: 0;
   border-radius: 50%;
-  border: 1px solid var(--stroke);
   background: transparent;
-  color: var(--ink);
+  color: var(--muted);
   cursor: pointer;
-  transition: border-color 0.25s, transform 0.35s var(--ease);
+  transition: color 0.25s, transform 0.35s var(--ease);
 }
 
 .nav__theme:hover {
-  border-color: var(--stroke-strong);
+  color: var(--ink);
   transform: rotate(-15deg);
 }
 
 .nav__theme:focus-visible {
   outline: 2px solid var(--glow);
-  outline-offset: 2px;
+  outline-offset: -2px;
+}
+
+/* Contato: a única ação sólida da barra */
+.nav__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 16px 0 18px;
+  margin-left: 4px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.25s, box-shadow 0.3s;
+}
+
+.nav__cta svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s var(--ease);
+}
+
+.nav__cta:hover {
+  background: #fff;
+  box-shadow: 0 0 22px -4px rgba(199, 162, 255, 0.6);
+}
+
+.nav__cta:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.nav__cta:focus-visible {
+  outline: 2px solid var(--glow);
+  outline-offset: 3px;
 }
 
 /* Botão de menu: só aparece no celular */
 .nav__menu {
   display: none;
   place-items: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
   border: 1px solid var(--stroke);
   background: transparent;
   color: var(--ink);
@@ -379,49 +541,76 @@ main {
   outline-offset: 2px;
 }
 
-.lang-toggle {
-  position: relative;
-  display: inline-flex;
-  padding: 3px;
-  border-radius: 999px;
-  border: 1px solid var(--stroke);
-  background: var(--glass);
-  isolation: isolate;
+/* Telas médias: o vidro sai do centro exato para caber, links mais juntos e o contato sem a seta */
+@media (max-width: 1100px) and (min-width: 901px) {
+  .nav {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+  .nav__glass {
+    justify-self: center;
+  }
+  .nav__cta svg {
+    display: none;
+  }
+  .nav__links a {
+    padding: 9px 12px;
+  }
+  .nav__links a::after {
+    left: 12px;
+    right: 12px;
+  }
 }
 
-.lang-toggle::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  top: 3px;
-  bottom: 3px;
-  left: 3px;
-  width: calc(50% - 3px);
-  border-radius: 999px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.08));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 4px 14px rgba(155, 92, 255, 0.35);
-  transition: transform 0.45s var(--ease);
-}
-
-.lang-toggle[data-pos='en']::before {
-  transform: translateX(100%);
-}
-
-.lang-toggle button {
-  min-width: 44px;
-  min-height: 34px;
-  border: 0;
-  background: none;
-  color: var(--muted);
-  font: 600 0.75rem var(--sans);
-  letter-spacing: 0.1em;
-  cursor: pointer;
-  border-radius: 999px;
-  transition: color 0.3s;
-}
-
-.lang-toggle button[aria-pressed='true'] {
-  color: var(--ink);
+/* Celular e tablet em pé: menu */
+@media (max-width: 900px) {
+  /* Marca à esquerda; idioma, tema e menu à direita. As seções abrem num painel de vidro embaixo */
+  .nav {
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 12px 16px;
+  }
+  .nav__cta {
+    display: none;
+  }
+  .nav__menu {
+    display: inline-grid;
+  }
+  .nav__glass {
+    position: absolute;
+    top: calc(100% - 4px);
+    left: 16px;
+    right: 16px;
+    display: none;
+    padding: 8px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(36, 31, 52, 0.92), rgba(21, 19, 31, 0.94));
+  }
+  .nav--open .nav__glass {
+    display: block;
+    animation: nav-menu-in 0.35s var(--ease);
+  }
+  .nav--open::before {
+    opacity: 1;
+  }
+  .nav__links {
+    flex-direction: column;
+  }
+  .nav__links-contact {
+    display: block;
+    margin-top: 4px;
+    padding-top: 4px;
+    border-top: 1px solid var(--stroke);
+  }
+  .nav__links a {
+    padding: 14px;
+    font-size: 1.05rem;
+  }
+  .nav__links a::after {
+    left: 14px;
+    right: auto;
+    bottom: 8px;
+    width: 32px;
+    transform-origin: left;
+  }
 }
 
 /* ============ Botões de vidro ============ */
@@ -1310,19 +1499,19 @@ main {
   font-size: 0.95rem;
 }
 
-.chips {
+/* Tecnologias como texto corrido: informação, não ação */
+.project__stack {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 4px 0;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.7);
 }
 
-.chip {
-  padding: 6px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  background: rgba(0, 0, 0, 0.18);
-  font-size: 0.75rem;
-  font-weight: 500;
+.project__stack li + li::before {
+  content: '/';
+  margin: 0 10px;
+  opacity: 0.45;
 }
 
 .project__actions {
@@ -1640,21 +1829,319 @@ button.bubble:focus-visible {
   }
 }
 
-.stack__extras {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 28px;
-  margin-top: 48px;
-  padding-top: 24px;
+/* Certificações: faixa entre fios fechando a seção, rótulo vertical à esquerda e os dois selos lado a lado */
+.certs {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  /* Mesmo respiro do topo de cada seção, para a faixa ficar equidistante das bolhas e do contato */
+  margin-top: clamp(80px, 12vw, 150px);
   border-top: 1px solid var(--stroke);
-  font-size: 0.86rem;
-  color: var(--muted);
+  border-bottom: 1px solid var(--stroke);
 }
 
-.stack__extras li::before {
-  content: '✦';
-  margin-right: 10px;
+/* Feixe de luz correndo pelo fio de cima */
+.certs::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 18%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(199, 162, 255, 0.9), rgba(255, 111, 142, 0.8), transparent);
+  box-shadow: 0 0 12px 1px rgba(199, 162, 255, 0.5);
+  animation: certs-beam 6s linear infinite;
+}
+
+/* Girado 180° para ler de baixo para cima: o padding-left fica visualmente à direita, junto do fio */
+.certs__label {
+  display: grid;
+  place-items: center;
+  padding-left: 32px;
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+}
+
+.certs__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-left: 1px solid var(--stroke);
+}
+
+/* Selo centralizado na altura; texto ocupa a linha toda, com emissor no topo e link no pé,
+   para os dois itens alinharem mesmo com nomes de tamanhos diferentes */
+.cert {
+  --tx: 0;
+  --ty: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 32px clamp(20px, 3vw, 40px);
+  transition: background-color 0.5s var(--ease);
+}
+
+.cert + .cert {
+  border-left: 1px solid var(--stroke);
+}
+
+/* Luz na cor do selo acendendo atrás dele no hover */
+.cert::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(60% 90% at 18% 50%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
+}
+
+.cert:hover::before {
+  opacity: 1;
+}
+
+/* Palco do selo: halo girando atrás e perspectiva para a inclinação */
+.cert__stage {
+  position: relative;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  perspective: 600px;
+}
+
+.cert__halo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 170px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  translate: -50% -50%;
+  background:
+    radial-gradient(circle, color-mix(in srgb, var(--accent) 40%, transparent) 0%, transparent 62%),
+    conic-gradient(from var(--angle), transparent 0deg, color-mix(in srgb, var(--accent) 70%, transparent) 60deg, transparent 140deg, transparent 220deg, color-mix(in srgb, var(--glow) 50%, transparent) 280deg, transparent 340deg);
+  -webkit-mask: radial-gradient(circle, #000 60%, transparent 71%);
+  mask: radial-gradient(circle, #000 60%, transparent 71%);
+  filter: blur(14px);
+  opacity: 0;
+  scale: 0.8;
+  animation: cert-halo 9s linear infinite;
+  transition: opacity 0.5s var(--ease), scale 0.6s var(--ease);
+}
+
+.cert:hover .cert__halo {
+  opacity: 1;
+  scale: 1;
+}
+
+.cert__badge {
+  position: relative;
+  display: block;
+  width: clamp(88px, 8vw, 112px);
+  transform: rotateX(calc(var(--ty) * -16deg)) rotateY(calc(var(--tx) * 20deg));
+  transform-style: preserve-3d;
+  transition: transform 0.6s var(--ease);
+}
+
+.cert:hover .cert__badge {
+  transition-duration: 0.15s;
+}
+
+/* Sombra no chão acompanhando a flutuação */
+.cert__badge::after {
+  content: '';
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: -14px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  filter: blur(7px);
+  animation: cert-float-shadow 3s ease-in-out infinite alternate;
+}
+
+.cert__float {
+  position: relative;
+  display: block;
+  animation: cert-float 3s ease-in-out infinite alternate;
+}
+
+.cert__float img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 8px 14px color-mix(in srgb, var(--accent) 35%, transparent));
+}
+
+/* Reflexo de luz recortado no formato do próprio selo: passa sozinho de tempos em tempos
+   e, no hover, segue o cursor */
+.cert__shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 38%, rgba(255, 255, 255, 0.65) 50%, transparent 62%) no-repeat;
+  background-size: 300% 100%;
+  background-position: 150% 0;
+  -webkit-mask: var(--badge) center / contain no-repeat;
+  mask: var(--badge) center / contain no-repeat;
+  mix-blend-mode: soft-light;
+  animation: cert-shine 6s var(--ease) infinite;
+}
+
+.cert:hover .cert__shine {
+  animation: none;
+  background-position: calc(50% - var(--tx) * 60%) 0;
+  mix-blend-mode: overlay;
+}
+
+/* Selos vizinhos fora de compasso */
+.cert:nth-child(even) .cert__float,
+.cert:nth-child(even) .cert__badge::after {
+  animation-delay: -1.5s;
+}
+
+.cert:nth-child(even) .cert__shine {
+  animation-delay: -3s;
+}
+
+.cert:nth-child(even) .cert__halo {
+  animation-direction: reverse;
+}
+
+.cert__text {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  min-width: 0;
+}
+
+.cert__issuer {
+  font-size: 0.84rem;
   color: var(--soft);
+}
+
+.cert__name {
+  margin-top: 8px;
+  font-size: clamp(1.1rem, 1.6vw, 1.25rem);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.cert__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  align-self: flex-start;
+  gap: 32px;
+  margin-top: auto;
+  padding-top: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--stroke-strong);
+  font-size: 0.9rem;
+  transition: border-color 0.25s;
+}
+
+/* O item inteiro abre a credencial */
+.cert__link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.cert__link svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s var(--ease);
+}
+
+.cert:hover .cert__link {
+  border-color: var(--accent);
+}
+
+.cert:hover .cert__link svg {
+  transform: translate(2px, -2px);
+}
+
+.cert__link:focus-visible {
+  outline: none;
+}
+
+.cert:has(.cert__link:focus-visible) {
+  outline: 2px solid var(--glow);
+  outline-offset: -2px;
+}
+
+@keyframes certs-beam {
+  from {
+    left: -18%;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes cert-halo {
+  to {
+    --angle: 360deg;
+  }
+}
+
+@keyframes cert-shine {
+  0%,
+  55% {
+    background-position: 150% 0;
+  }
+  80%,
+  100% {
+    background-position: -50% 0;
+  }
+}
+
+/* Sobe e desce devagar o tempo todo; a sombra fica menor e mais clara quando ele sobe */
+@keyframes cert-float {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 -8px;
+  }
+}
+
+@keyframes cert-float-shadow {
+  from {
+    scale: 1;
+    opacity: 1;
+  }
+  to {
+    scale: 0.8;
+    opacity: 0.6;
+  }
+}
+
+/* Telas estreitas: rótulo deitado em cima e os selos um embaixo do outro */
+@media (max-width: 860px) {
+  .certs {
+    grid-template-columns: 1fr;
+  }
+  .certs__label {
+    place-items: start;
+    padding: 20px 0 0;
+    writing-mode: horizontal-tb;
+    rotate: none;
+  }
+  .certs__list {
+    grid-template-columns: 1fr;
+    border-left: 0;
+  }
+  .cert {
+    padding: 28px 0;
+  }
+  .cert + .cert {
+    border-left: 0;
+    border-top: 1px solid var(--stroke);
+  }
 }
 
 /* ============ Contato ============ */
@@ -1861,39 +2348,6 @@ button.bubble:focus-visible {
 }
 
 @media (max-width: 720px) {
-  /* Logo à esquerda; idioma e menu à direita; os links abrem embaixo, dentro da pílula */
-  .nav {
-    width: calc(100% - 32px);
-    flex-wrap: wrap;
-    gap: 8px;
-    border-radius: 28px;
-  }
-  .lang-toggle {
-    margin-left: auto;
-  }
-  .nav__menu {
-    display: inline-grid;
-  }
-  .nav__links {
-    display: none;
-  }
-  .nav--open .nav__links {
-    order: 3;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 2px;
-    padding: 8px 4px 4px;
-    border-top: 1px solid var(--stroke);
-    animation: nav-menu-in 0.35s var(--ease);
-  }
-  .nav--open .nav__links a {
-    padding: 14px 12px;
-    font-size: 1.05rem;
-  }
-  .nav--open .nav__links a::after {
-    display: none;
-  }
   /* No celular tudo fica num eixo central: foto, nome, texto e botões */
   .hero {
     padding-top: 104px;
@@ -2018,6 +2472,9 @@ button.bubble:focus-visible {
     opacity: 1;
     transform: none;
     filter: none;
+  }
+  .cert__badge {
+    transform: none;
   }
 }
 

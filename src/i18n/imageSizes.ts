@@ -36,11 +36,6 @@ export const imageSizes: Record<string, number[]> = {
     1200,
     1600
   ],
-  '/projects/leituramiga/desktop-book-form.webp': [
-    800,
-    1200,
-    1600
-  ],
   '/projects/leituramiga/home.webp': [
     360,
     540,
@@ -57,11 +52,6 @@ export const imageSizes: Record<string, number[]> = {
     720
   ],
   '/projects/leituramiga/profile.webp': [
-    360,
-    540,
-    720
-  ],
-  '/projects/leituramiga/requests.webp': [
     360,
     540,
     720
