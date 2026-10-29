@@ -1891,13 +1891,9 @@ button.bubble:focus-visible {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(60% 90% at 18% 50%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
+  background: radial-gradient(60% 90% at 18% 50%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%);
   opacity: 0;
   transition: opacity 0.5s var(--ease);
-}
-
-.cert:hover::before {
-  opacity: 1;
 }
 
 /* Palco do selo: halo girando atrás e perspectiva para a inclinação */
@@ -1913,25 +1909,20 @@ button.bubble:focus-visible {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 170px;
+  width: 128px;
   aspect-ratio: 1;
   border-radius: 50%;
   translate: -50% -50%;
   background:
-    radial-gradient(circle, color-mix(in srgb, var(--accent) 40%, transparent) 0%, transparent 62%),
-    conic-gradient(from var(--angle), transparent 0deg, color-mix(in srgb, var(--accent) 70%, transparent) 60deg, transparent 140deg, transparent 220deg, color-mix(in srgb, var(--glow) 50%, transparent) 280deg, transparent 340deg);
-  -webkit-mask: radial-gradient(circle, #000 60%, transparent 71%);
-  mask: radial-gradient(circle, #000 60%, transparent 71%);
-  filter: blur(14px);
+    radial-gradient(circle, color-mix(in srgb, var(--accent) 22%, transparent) 0%, transparent 62%),
+    conic-gradient(from var(--angle), transparent 0deg, color-mix(in srgb, var(--accent) 38%, transparent) 60deg, transparent 140deg, transparent 220deg, color-mix(in srgb, var(--glow) 28%, transparent) 280deg, transparent 340deg);
+  -webkit-mask: radial-gradient(circle, #000 55%, transparent 71%);
+  mask: radial-gradient(circle, #000 55%, transparent 71%);
+  filter: blur(20px);
   opacity: 0;
   scale: 0.8;
   animation: cert-halo 9s linear infinite;
   transition: opacity 0.5s var(--ease), scale 0.6s var(--ease);
-}
-
-.cert:hover .cert__halo {
-  opacity: 1;
-  scale: 1;
 }
 
 .cert__badge {
@@ -1941,10 +1932,6 @@ button.bubble:focus-visible {
   transform: rotateX(calc(var(--ty) * -16deg)) rotateY(calc(var(--tx) * 20deg));
   transform-style: preserve-3d;
   transition: transform 0.6s var(--ease);
-}
-
-.cert:hover .cert__badge {
-  transition-duration: 0.15s;
 }
 
 /* Sombra no chão acompanhando a flutuação */
@@ -1987,12 +1974,6 @@ button.bubble:focus-visible {
   mask: var(--badge) center / contain no-repeat;
   mix-blend-mode: soft-light;
   animation: cert-shine 6s var(--ease) infinite;
-}
-
-.cert:hover .cert__shine {
-  animation: none;
-  background-position: calc(50% - var(--tx) * 60%) 0;
-  mix-blend-mode: overlay;
 }
 
 /* Selos vizinhos fora de compasso */
@@ -2056,14 +2037,6 @@ button.bubble:focus-visible {
   transition: transform 0.3s var(--ease);
 }
 
-.cert:hover .cert__link {
-  border-color: var(--accent);
-}
-
-.cert:hover .cert__link svg {
-  transform: translate(2px, -2px);
-}
-
 .cert__link:focus-visible {
   outline: none;
 }
@@ -2071,6 +2044,37 @@ button.bubble:focus-visible {
 .cert:has(.cert__link:focus-visible) {
   outline: 2px solid var(--glow);
   outline-offset: -2px;
+}
+
+/* Efeitos de hover só com mouse: no toque o :hover fica preso depois de rolar
+   e deixava o halo aceso em cima do selo */
+@media (hover: hover) and (pointer: fine) {
+  .cert:hover::before {
+    opacity: 1;
+  }
+
+  .cert:hover .cert__halo {
+    opacity: 1;
+    scale: 1;
+  }
+
+  .cert:hover .cert__badge {
+    transition-duration: 0.15s;
+  }
+
+  .cert:hover .cert__shine {
+    animation: none;
+    background-position: calc(50% - var(--tx) * 60%) 0;
+    mix-blend-mode: overlay;
+  }
+
+  .cert:hover .cert__link {
+    border-color: var(--accent);
+  }
+
+  .cert:hover .cert__link svg {
+    transform: translate(2px, -2px);
+  }
 }
 
 @keyframes certs-beam {
@@ -2477,7 +2481,6 @@ button.bubble:focus-visible {
     transform: none;
   }
 }
-
 
 @keyframes nav-menu-in {
   from {
