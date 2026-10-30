@@ -238,6 +238,13 @@
 [data-theme='light'] .case__meta div {
   background: rgba(255, 255, 255, 0.75);
 }
+/* No celular vitrine e ficha ficam sem caixa */
+@media (max-width: 720px) {
+  [data-theme='light'] .showcase,
+  [data-theme='light'] .case__meta div {
+    background: none;
+  }
+}
 [data-theme='light'] .browser {
   background: #fffaf7;
 }

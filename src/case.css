@@ -81,16 +81,21 @@
   animation: hero-in 1.2s var(--ease) both;
 }
 
+.case__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* Voltar em texto normal: lê como navegação, não como mais um rótulo */
 .case__back {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   min-height: 44px;
-  margin-bottom: 28px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-size: 0.95rem;
+  font-weight: 500;
   color: var(--muted);
   transition: color 0.25s;
 }
@@ -107,25 +112,32 @@
   transform: translateX(-4px);
 }
 
-.case__badges {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 14px;
-  font-size: 0.72rem;
+.case__back:focus-visible {
+  outline: 2px solid var(--glow);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.case__top .project__badge {
+  flex-shrink: 0;
+  font-size: 0.66rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
 .case__tagline {
-  color: var(--muted);
+  margin-top: clamp(28px, 4vw, 44px);
+  font-size: 0.72rem;
   font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--soft);
 }
 
 .case__name {
   display: block;
   width: fit-content;
-  margin-top: 22px;
+  margin-top: 12px;
   font-family: var(--serif);
   font-weight: 400;
   font-size: clamp(3.4rem, 11vw, 9rem);
@@ -154,7 +166,7 @@
   grid-auto-flow: column;
   grid-auto-columns: 1fr;
   gap: 1px;
-  margin: 56px 0 0;
+  margin: 0 0 56px;
   border: 1px solid var(--stroke);
   border-radius: 22px;
   overflow: hidden;
@@ -370,6 +382,21 @@
   padding-top: clamp(72px, 10vw, 128px);
 }
 
+.gallery__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* Contador só faz sentido na faixa lateral do celular */
+.gallery__count {
+  display: none;
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--faint);
+}
+
 .gallery__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -550,6 +577,12 @@
   font-weight: 400;
   font-size: clamp(2rem, 3.6vw, 2.8rem);
   line-height: 1.05;
+}
+
+/* Números de capítulo e "/ total" dos cards: só aparecem no celular */
+.case__num,
+.case__of {
+  display: none;
 }
 
 .case__text {
@@ -737,6 +770,20 @@
   }
 }
 
+/* Desktop: a ficha volta para logo abaixo do topo, antes da vitrine */
+@media (min-width: 721px) {
+  .case {
+    display: flex;
+    flex-direction: column;
+  }
+  .case__hero {
+    order: -2;
+  }
+  .case__meta {
+    order: -1;
+  }
+}
+
 .case__footer {
   padding-bottom: 32px;
 }
@@ -760,21 +807,166 @@
 }
 
 @media (max-width: 720px) {
-  .gallery__grid {
-    grid-template-columns: 1fr;
+  /* Blocos de texto como capítulos: 01 problema, 02 funcionalidades, 03 atuação
+     (com as tecnologias logo embaixo), 04 decisões e os aprendizados fechando */
+  .case__content {
+    gap: 72px;
+    padding-top: 64px;
   }
-  .gallery__item .phone {
-    width: min(78%, 320px);
+  .case__block--problem { order: 1; }
+  .case__block--features { order: 2; }
+  .case__block--role { order: 3; }
+  .case__block--stack { order: 4; }
+  .case__block--decisions { order: 5; }
+  .case__block--outcome { order: 6; }
+  .case__label {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .case__num {
+    display: inline;
+    flex: none;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--glow);
+  }
+  /* Tecnologias entram no capítulo da atuação: sem título visível e coladas a ele */
+  .case__block--stack {
+    margin-top: -48px;
+  }
+  .case__block--stack .case__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  /* Funcionalidades numa faixa lateral, como a galeria */
+  .case__cards {
+    display: flex;
+    gap: 12px;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 4px var(--gutter) 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+  .case__cards::-webkit-scrollbar {
+    display: none;
+  }
+  .case__card {
+    flex: 0 0 68%;
+    padding: 20px;
+    scroll-snap-align: start;
+  }
+  .case__of {
+    display: inline;
+  }
+  .case__decisions div {
+    padding: 14px 0;
+  }
+  /* Aprendizados fecham a página: rótulo pequeno e o texto em serif grande */
+  .case__block--outcome .case__label {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .case__block--outcome .case__text--large {
+    font-family: var(--serif);
+    font-size: 1.65rem;
+    line-height: 1.2;
+  }
+  /* Galeria vira faixa lateral com encaixe: o próximo print aparece pela borda */
+  .gallery {
+    gap: 18px;
+    padding-top: 56px;
+  }
+  .gallery__count {
+    display: inline;
+  }
+  .gallery__grid {
+    display: flex;
+    gap: 14px;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 4px var(--gutter) 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+  .gallery__grid::-webkit-scrollbar {
+    display: none;
+  }
+  .gallery__item {
+    flex: 0 0 62%;
+    align-items: stretch;
+    gap: 14px;
+    scroll-snap-align: start;
+  }
+  .gallery__item--browser {
+    flex-basis: 88%;
+  }
+  .gallery__item .phone,
+  .gallery__item--browser .browser {
+    width: 100%;
+  }
+  /* Botões dividem a linha; o que não couber desce e ocupa a linha inteira */
+  .case__actions {
+    margin-top: 24px;
+    gap: 10px;
+  }
+  .case__actions .glass-btn {
+    flex: 1 1 auto;
+    white-space: nowrap;
+  }
+  /* Vitrine logo depois dos botões, sem caixa, ocupando a largura da tela */
+  .case__hero {
+    padding-bottom: 20px;
   }
   .showcase {
-    padding-inline: 0;
-    border-radius: 28px;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 8px 0 20px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+  .showcase__aura {
+    inset: 0;
+  }
+  /* Ficha como lista de linhas "rótulo ... valor", sem caixas */
+  .case__meta {
+    display: block;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+  }
+  .case__meta div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--stroke);
+    background: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .case__meta dd {
+    margin: 0;
+    text-align: right;
   }
   .showcase__phones {
     justify-content: flex-start;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    padding: 0 24px 8px;
+    padding: 0 var(--gutter) 8px;
     scrollbar-width: none;
   }
   .showcase__phones .phone {

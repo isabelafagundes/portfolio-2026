@@ -1,3 +1,4 @@
+import { useState, type UIEvent } from 'react'
 import type { Lang } from '../i18n/content'
 import type { Mockup } from '../i18n/projects'
 import { imageSizes } from '../i18n/imageSizes'
@@ -73,17 +74,34 @@ export function MockupView({ mockup, lang, tone }: { mockup: Mockup; lang: Lang;
   return <PhoneFrame src={mockup.src} alt={alt} ratio={mockup.ratio} tone={mockup.tone ?? tone} />
 }
 
-/** Grade com as telas extras e suas legendas (prints de desktop ocupam a linha inteira). */
+/** Grade com as telas extras e suas legendas (prints de desktop ocupam a linha inteira).
+ *  No celular vira uma faixa lateral com encaixe, e o contador acompanha o print à esquerda. */
 export function Gallery({ items, lang, title, tone }: { items: Mockup[]; lang: Lang; title: string; tone: string }) {
+  const [current, setCurrent] = useState(0)
+  const onScroll = (e: UIEvent<HTMLUListElement>) => {
+    const list = e.currentTarget
+    const first = list.firstElementChild as HTMLElement | null
+    if (!first) return
+    const step = first.offsetWidth + parseFloat(getComputedStyle(list).columnGap || '0')
+    // No fim da faixa o último print nem sempre chega à esquerda: conta como o último
+    const atEnd = list.scrollLeft + list.clientWidth >= list.scrollWidth - 4
+    setCurrent(atEnd ? items.length - 1 : Math.round(list.scrollLeft / step))
+  }
+  const pad = (n: number) => String(n).padStart(2, '0')
   return (
     <section className="gallery reveal" aria-label={title}>
-      <h2 className="case__label">{title}</h2>
-      <ul className="gallery__grid">
+      <div className="gallery__head">
+        <h2 className="case__label">{title}</h2>
+        <span className="gallery__count" aria-hidden="true">
+          {pad(current + 1)} / {pad(items.length)}
+        </span>
+      </div>
+      <ul className="gallery__grid" onScroll={onScroll}>
         {items.map((m, i) => (
           <li key={i} className={`gallery__item gallery__item--${m.kind}`}>
             <MockupView mockup={m} lang={lang} tone={tone} />
             <p className="gallery__caption">
-              <span>{String(i + 1).padStart(2, '0')}</span> {m.alt[lang]}
+              <span>{pad(i + 1)}</span> {m.alt[lang]}
             </p>
           </li>
         ))}

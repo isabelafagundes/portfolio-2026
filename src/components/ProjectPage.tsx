@@ -29,13 +29,14 @@ export function ProjectPage({ project }: { project: Project }) {
   return (
     <main className={`case case--${project.hue}`}>
       <header className="case__hero">
-        <Link href="/#projects" className="case__back">
-          <span aria-hidden="true">←</span> {t.projects.back}
-        </Link>
-        <div className="case__badges">
+        {/* Ação à esquerda, contexto à direita; a tagline fica sozinha, colada ao nome */}
+        <div className="case__top">
+          <Link href="/#projects" className="case__back">
+            <span aria-hidden="true">←</span> {t.projects.back}
+          </Link>
           <span className="project__badge">{c.badge}</span>
-          <span className="case__tagline">{c.tagline}</span>
         </div>
+        <p className="case__tagline">{c.tagline}</p>
         <h1 className="case__name chrome-text">{c.name}</h1>
         <p className="case__intro">{c.intro}</p>
         <div className="case__actions">
@@ -61,14 +62,6 @@ export function ProjectPage({ project }: { project: Project }) {
             </GlassButton>
           ))}
         </div>
-        <dl className="case__meta">
-          {c.meta.map((m) => (
-            <div key={m.label}>
-              <dt>{m.label}</dt>
-              <dd>{m.value}</dd>
-            </div>
-          ))}
-        </dl>
       </header>
 
       <section className="showcase" aria-label={t.projects.gallery}>
@@ -91,6 +84,16 @@ export function ProjectPage({ project }: { project: Project }) {
         )}
       </section>
 
+      {/* No celular a ficha vem depois dos prints; no desktop o CSS a devolve para logo abaixo do topo */}
+      <dl className="case__meta">
+        {c.meta.map((m) => (
+          <div key={m.label}>
+            <dt>{m.label}</dt>
+            <dd>{m.value}</dd>
+          </div>
+        ))}
+      </dl>
+
       {project.gallery && <Gallery items={project.gallery} lang={lang} title={t.projects.gallery} tone={project.screenTone} />}
 
       {project.videos && (
@@ -98,8 +101,12 @@ export function ProjectPage({ project }: { project: Project }) {
       )}
 
       <div className="case__content">
-        <section className="case__block reveal">
-          <h2 className="case__label">{c.context.title}</h2>
+        {/* No celular os blocos viram capítulos numerados, na ordem dos números (ver case.css) */}
+        <section className="case__block case__block--problem reveal">
+          <h2 className="case__label">
+            <span className="case__num" aria-hidden="true">01</span>
+            {c.context.title}
+          </h2>
           <div className="case__text">
             {c.context.paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
@@ -107,8 +114,11 @@ export function ProjectPage({ project }: { project: Project }) {
           </div>
         </section>
 
-        <section className="case__block reveal">
-          <h2 className="case__label">{c.role.title}</h2>
+        <section className="case__block case__block--role reveal">
+          <h2 className="case__label">
+            <span className="case__num" aria-hidden="true">03</span>
+            {c.role.title}
+          </h2>
           <div className="case__role">
             {c.role.intro && <p className="case__text">{c.role.intro}</p>}
             <ul className="case__list">
@@ -128,12 +138,18 @@ export function ProjectPage({ project }: { project: Project }) {
           </div>
         </section>
 
-        <section className="case__block case__block--wide reveal">
-          <h2 className="case__label">{c.features.title}</h2>
+        <section className="case__block case__block--wide case__block--features reveal">
+          <h2 className="case__label">
+            <span className="case__num" aria-hidden="true">02</span>
+            {c.features.title}
+          </h2>
           <ul className="case__cards">
             {c.features.items.map((f, i) => (
               <li key={i} className="glass-card case__card" onPointerMove={onPointerGlow}>
-                <span className="highlight__num">{String(i + 1).padStart(2, '0')}</span>
+                <span className="highlight__num">
+                  {String(i + 1).padStart(2, '0')}
+                  <span className="case__of"> / {String(c.features.items.length).padStart(2, '0')}</span>
+                </span>
                 <h3>{f.title}</h3>
                 <p>{f.text}</p>
               </li>
@@ -141,8 +157,11 @@ export function ProjectPage({ project }: { project: Project }) {
           </ul>
         </section>
 
-        <section className="case__block reveal">
-          <h2 className="case__label">{c.decisions.title}</h2>
+        <section className="case__block case__block--decisions reveal">
+          <h2 className="case__label">
+            <span className="case__num" aria-hidden="true">04</span>
+            {c.decisions.title}
+          </h2>
           <dl className="case__decisions">
             {c.decisions.items.map((d, i) => (
               <div key={i}>
@@ -153,7 +172,7 @@ export function ProjectPage({ project }: { project: Project }) {
           </dl>
         </section>
 
-        <section className="case__block reveal">
+        <section className="case__block case__block--stack reveal">
           <h2 className="case__label">{t.projects.stack}</h2>
           <ul className="bubbles">
             {project.stack.map((s) => (
@@ -164,7 +183,7 @@ export function ProjectPage({ project }: { project: Project }) {
           </ul>
         </section>
 
-        <section className="case__block reveal">
+        <section className="case__block case__block--outcome reveal">
           <h2 className="case__label">{c.outcome.title}</h2>
           <div className="case__text case__text--large">
             {c.outcome.paragraphs.map((p, i) => (
